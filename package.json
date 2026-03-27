@@ -29,9 +29,9 @@
   },
   "type": "module",
   "scripts": {
-    "dev": "turbo dev",
     "build": "turbo build",
     "check-types": "turbo check-types",
+    "dev": "turbo -F @dream-stack/infra dev",
     "dev:native": "turbo -F native dev",
     "dev:web": "turbo -F web dev",
     "dev:server": "turbo -F server dev",
