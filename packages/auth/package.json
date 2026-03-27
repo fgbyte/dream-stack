@@ -1,0 +1,27 @@
+{
+  "name": "@dream-stack/auth",
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts"
+    },
+    "./*": {
+      "default": "./src/*.ts"
+    }
+  },
+  "scripts": {},
+  "dependencies": {
+    "@better-auth/drizzle-adapter": "^1.5.5",
+    "@dream-stack/db": "workspace:*",
+    "@dream-stack/env": "workspace:*",
+    "better-auth": "catalog:",
+    "dotenv": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@dream-stack/config": "workspace:*",
+    "typescript": "catalog:"
+  }
+}

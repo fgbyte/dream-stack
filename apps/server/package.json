@@ -1,0 +1,36 @@
+{
+  "name": "server",
+  "type": "module",
+  "main": "src/index.ts",
+  "scripts": {
+    "build": "tsdown",
+    "check-types": "tsc -b",
+    "compile": "bun build --compile --minify --sourcemap --bytecode ./src/index.ts --outfile server"
+  },
+  "dependencies": {
+    "@dream-stack/api": "workspace:*",
+    "@dream-stack/auth": "workspace:*",
+    "@dream-stack/db": "workspace:*",
+    "@dream-stack/env": "workspace:*",
+    "@orpc/openapi": "catalog:",
+    "@orpc/server": "catalog:",
+    "@orpc/zod": "catalog:",
+    "better-auth": "catalog:",
+    "dotenv": "catalog:",
+    "hono": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "catalog:",
+    "@dream-stack/config": "workspace:*",
+    "@types/node": "catalog:",
+    "@vitest/coverage-v8": "catalog:",
+    "@vitest/ui": "catalog:",
+    "alchemy": "catalog:",
+    "jsdom": "catalog:",
+    "tsdown": "^0.16.5",
+    "typescript": "catalog:",
+    "vitest": "catalog:",
+    "wrangler": "^4.54.0"
+  }
+}
