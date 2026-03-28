@@ -59,6 +59,12 @@ dream-stack/
 - `bun db:push` - Push database schema
 - `bun db:studio` - Open database UI
 
+## Environment Files
+
+- `bun dev` / `alchemy dev` loads `.env.local`
+- `bun deploy` / `alchemy deploy` loads `.env`
+- The web app is built by Vite, so `VITE_*` values are resolved at build time
+
 ## Maintenance
 
 Keep Agents.md updated when:
