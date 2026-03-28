@@ -6,6 +6,7 @@ import { existsSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
+// Define paths - Resolve current directory, workspace root, and directories containing environment files
 const currentDir = path.dirname(fileURLToPath(import.meta.url));
 const workspaceRoot = path.resolve(currentDir, "../..");
 const envDirs = [
@@ -14,6 +15,7 @@ const envDirs = [
   path.join(workspaceRoot, "apps/server"),
 ];
 
+// Detect runtime mode - Determine if running in local development or deployment based on npm lifecycle events
 function getAlchemyMode() {
   const lifecycleEvent = process.env.npm_lifecycle_event;
   const lifecycleScript = process.env.npm_lifecycle_script;
@@ -29,6 +31,7 @@ function getAlchemyMode() {
   return process.argv.includes("dev") ? "local" : "deploy";
 }
 
+// Load environment variables - Load appropriate .env file based on detected mode for each configured directory
 function loadEnvForMode(mode: "local" | "deploy") {
   const envFileName = mode === "local" ? ".env.local" : ".env";
 
@@ -49,6 +52,7 @@ function loadEnvForMode(mode: "local" | "deploy") {
 const mode = getAlchemyMode();
 loadEnvForMode(mode);
 
+// Log mode and validate environment - Print detected mode and define utility to validate required environment variables
 console.log(`[alchemy] env mode: ${mode}`);
 console.log(
   `[alchemy] lifecycle event: ${process.env.npm_lifecycle_event ?? "unknown"}`,
@@ -64,8 +68,10 @@ function requireEnv(name: string) {
   return value;
 }
 
+// Initialize Alchemy application - Create the main Alchemy app instance that will manage all infrastructure resources
 const app = await alchemy("dream-stack");
 
+//  Define frontend resource - Configure Vite site with Cloudflare, pointing to the web app with required environment bindings
 export const web = await Vite("web", {
   cwd: "../../apps/web",
   assets: "dist",
@@ -74,6 +80,7 @@ export const web = await Vite("web", {
   },
 });
 
+//  Define backend resource - Configure Cloudflare Worker for the API server with secrets, bindings, and development settings
 export const server = await Worker("server", {
   cwd: "../../apps/server",
   entrypoint: "src/index.ts",
@@ -90,7 +97,8 @@ export const server = await Worker("server", {
   },
 });
 
-console.log(`Web    -> ${web.url}`);
+// Finalize deployment - Print deployed resource URLs and complete the Alchemy lifecycle by applying all changes
+console.log(`Web -> ${web.url}`);
 console.log(`Server -> ${server.url}`);
 
 await app.finalize();
